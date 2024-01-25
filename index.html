@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" >
+    <script src="main.js"></script>
+    <script src="utilities.js"></script>
+    <title>Virtual Memory</title>
+</head>
+<body>
+    <Div class="main">
+        <div class="crtl-bar">
+            <div class="container-fluid">
+                <h4>Page Size</h4>
+                <Input type="number" id="pagesize" value="128" />
+            </div>
+            <div class="container-fluid">
+                <h4>Offset Bits</h4>
+                <Input id="offsetsize" type="number" value="2"/>
+            </div>
+            <div class="container-fluid">
+                <h4>Virtual Memory Size </h4>
+                <Input id="virtualmemsize" type="number" value="2048"/>
+            </div>
+            <div class="container-fluid">
+                <h4>TLB entries</h4>
+                <Input id="TLBsize" type="number" value="10"/>
+            </div>
+            <input type="submit" class="submit" id="submitconfig" value="Submit" onclick="loadConfiguration()"/>
+            <input type="submit" class="submit" id="reset" value="reset" onclick="resetConfiguration()"/>
+            <hr>
+            <h3>Load Intruction</h3>
+            <div class="container-fluid">
+                <h4>Load </h4>
+                <Input id="ld-inp" placeholder="logical address" type="text"/>
+            </div>
+            <Input type="submit" id="ld-btn" class="submit" value="Submit" onclick="loadInstruction()"/>
+            <hr>
+            <h3>Information</h3>
+            <div class="info" style="height: 150px;">
+                <h5 id="info">Please configure the settings</h5>
+                <div id="ctrl_btns"></div>
+            </div>
+            <hr>
+            <h3>Analysis</h3>
+            <h6 id="hitrate" style="margin-left: 10px;">Hit rate:</h6>
+            <h6 id="missrate" style="margin-left: 10px;">Miss rate:</h6>
+            <h5>Previous instructions executed</h5>
+            <h6 style="margin-left: 10px;" id="list_of_prev_instructions"></h6>
+        </div>
+        
+        
+
+        
+        <div class="sim">
+            <h2>Virtual Memory</h2>
+            <div id="canvas"></div>
+            <div class="ib">
+                <h4>INTRUCTION BREAKDOWN</h4>
+                <table id="ib">
+                    <thead>
+                        <tr>
+                            <th id="ibindexbit">index</td>
+                            <th id="iboffsetbit">offset</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="indexbit">-</td>
+                            <td id="offsetbit">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="TLB">
+                <h4>Translational Lookaside Table</h4>
+                <table id="TLB">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>virtual page #</th>
+                            <th>physical frame #</th>
+                        </tr>
+                    </thead>
+                    <tbody id="TLB-tbody">
+                        <!-- <tr class="TLB_row-0">
+                            <td>0</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <table style="width: 50%; margin-left: auto;">
+                    <tr>
+                        <td style="width: 50%;" id="midbox_frame">Frame</td>
+                        <td id="midbox_offset">Offset</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="container-flex">
+                <div class="page_table">
+                    <h4>Page Table</h4>
+                    <table id="page_table" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>index</th>
+                                <th>valid</th>
+                                <th>physical Frame # </th>
+                            </tr>
+                        </thead>
+                        <tbody id="page_table-tbody">
+                            <!-- <tr>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+    
+                <div class="physical_mem">
+                    <h4>Physical Memory</h4>
+    
+                    <table id="physical_mem" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Frame #</th>
+                                <th>Content</th>
+                            </tr>
+                        </thead>
+                        <tbody id="physical_mem-tbody" >
+                            <tr>
+                                <!-- <td>0</td>
+                                <td>Block 000000000 Words : 0 - 3</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </Div>
+</body>
+</html>
